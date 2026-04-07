@@ -1,0 +1,249 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.panchadika"
+4    android:versionCode="1"
+5    android:versionName="1.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="26"
+9        android:targetSdkVersion="34" />
+10
+11    <!-- SMS Permissions -->
+12    <uses-permission android:name="android.permission.SEND_SMS" />
+12-->/home/onyx/workspace/panchadika/app/src/main/AndroidManifest.xml:6:5-67
+12-->/home/onyx/workspace/panchadika/app/src/main/AndroidManifest.xml:6:22-64
+13    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+13-->/home/onyx/workspace/panchadika/app/src/main/AndroidManifest.xml:7:5-70
+13-->/home/onyx/workspace/panchadika/app/src/main/AndroidManifest.xml:7:22-67
+14    <uses-permission android:name="android.permission.READ_SMS" />
+14-->/home/onyx/workspace/panchadika/app/src/main/AndroidManifest.xml:8:5-67
+14-->/home/onyx/workspace/panchadika/app/src/main/AndroidManifest.xml:8:22-64
+15
+16    <!-- Phone State & Contacts -->
+17    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+17-->/home/onyx/workspace/panchadika/app/src/main/AndroidManifest.xml:11:5-75
+17-->/home/onyx/workspace/panchadika/app/src/main/AndroidManifest.xml:11:22-72
+18    <uses-permission android:name="android.permission.READ_PHONE_NUMBERS" />
+18-->/home/onyx/workspace/panchadika/app/src/main/AndroidManifest.xml:12:5-77
+18-->/home/onyx/workspace/panchadika/app/src/main/AndroidManifest.xml:12:22-74
+19    <uses-permission android:name="android.permission.READ_CONTACTS" />
+19-->/home/onyx/workspace/panchadika/app/src/main/AndroidManifest.xml:13:5-72
+19-->/home/onyx/workspace/panchadika/app/src/main/AndroidManifest.xml:13:22-69
+20
+21    <!-- Notifications (Android 13+) -->
+22    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+22-->/home/onyx/workspace/panchadika/app/src/main/AndroidManifest.xml:16:5-77
+22-->/home/onyx/workspace/panchadika/app/src/main/AndroidManifest.xml:16:22-74
+23
+24    <!-- Default SMS App requirements -->
+25    <uses-permission android:name="android.permission.RECEIVE_MMS" />
+25-->/home/onyx/workspace/panchadika/app/src/main/AndroidManifest.xml:19:5-70
+25-->/home/onyx/workspace/panchadika/app/src/main/AndroidManifest.xml:19:22-67
+26
+27    <permission
+27-->[androidx.core:core:1.13.1] /home/onyx/.gradle/caches/8.9/transforms/089d4aef7ae505e0293c4f58bb318def/transformed/core-1.13.1/AndroidManifest.xml:22:5-24:47
+28        android:name="com.panchadika.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+28-->[androidx.core:core:1.13.1] /home/onyx/.gradle/caches/8.9/transforms/089d4aef7ae505e0293c4f58bb318def/transformed/core-1.13.1/AndroidManifest.xml:23:9-81
+29        android:protectionLevel="signature" />
+29-->[androidx.core:core:1.13.1] /home/onyx/.gradle/caches/8.9/transforms/089d4aef7ae505e0293c4f58bb318def/transformed/core-1.13.1/AndroidManifest.xml:24:9-44
+30
+31    <uses-permission android:name="com.panchadika.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
+31-->[androidx.core:core:1.13.1] /home/onyx/.gradle/caches/8.9/transforms/089d4aef7ae505e0293c4f58bb318def/transformed/core-1.13.1/AndroidManifest.xml:26:5-97
+31-->[androidx.core:core:1.13.1] /home/onyx/.gradle/caches/8.9/transforms/089d4aef7ae505e0293c4f58bb318def/transformed/core-1.13.1/AndroidManifest.xml:26:22-94
+32
+33    <application
+33-->/home/onyx/workspace/panchadika/app/src/main/AndroidManifest.xml:21:5-76:19
+34        android:name="com.panchadika.PanchadikaApp"
+34-->/home/onyx/workspace/panchadika/app/src/main/AndroidManifest.xml:22:9-38
+35        android:allowBackup="false"
+35-->/home/onyx/workspace/panchadika/app/src/main/AndroidManifest.xml:23:9-36
+36        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+36-->[androidx.core:core:1.13.1] /home/onyx/.gradle/caches/8.9/transforms/089d4aef7ae505e0293c4f58bb318def/transformed/core-1.13.1/AndroidManifest.xml:28:18-86
+37        android:dataExtractionRules="@xml/data_extraction_rules"
+37-->/home/onyx/workspace/panchadika/app/src/main/AndroidManifest.xml:24:9-65
+38        android:debuggable="true"
+39        android:extractNativeLibs="false"
+40        android:fullBackupContent="false"
+40-->/home/onyx/workspace/panchadika/app/src/main/AndroidManifest.xml:25:9-42
+41        android:icon="@drawable/ic_launcher_foreground"
+41-->/home/onyx/workspace/panchadika/app/src/main/AndroidManifest.xml:26:9-56
+42        android:label="@string/app_name"
+42-->/home/onyx/workspace/panchadika/app/src/main/AndroidManifest.xml:27:9-41
+43        android:roundIcon="@drawable/ic_launcher_foreground"
+43-->/home/onyx/workspace/panchadika/app/src/main/AndroidManifest.xml:28:9-61
+44        android:supportsRtl="true"
+44-->/home/onyx/workspace/panchadika/app/src/main/AndroidManifest.xml:29:9-35
+45        android:theme="@style/Theme.Panchadika" >
+45-->/home/onyx/workspace/panchadika/app/src/main/AndroidManifest.xml:30:9-48
+46
+47        <!-- Main Activity -->
+48        <activity
+48-->/home/onyx/workspace/panchadika/app/src/main/AndroidManifest.xml:34:9-42:20
+49            android:name="com.panchadika.presentation.MainActivity"
+49-->/home/onyx/workspace/panchadika/app/src/main/AndroidManifest.xml:35:13-54
+50            android:exported="true"
+50-->/home/onyx/workspace/panchadika/app/src/main/AndroidManifest.xml:36:13-36
+51            android:theme="@style/Theme.Panchadika" >
+51-->/home/onyx/workspace/panchadika/app/src/main/AndroidManifest.xml:37:13-52
+52            <intent-filter>
+52-->/home/onyx/workspace/panchadika/app/src/main/AndroidManifest.xml:38:13-41:29
+53                <action android:name="android.intent.action.MAIN" />
+53-->/home/onyx/workspace/panchadika/app/src/main/AndroidManifest.xml:39:17-69
+53-->/home/onyx/workspace/panchadika/app/src/main/AndroidManifest.xml:39:25-66
+54
+55                <category android:name="android.intent.category.LAUNCHER" />
+55-->/home/onyx/workspace/panchadika/app/src/main/AndroidManifest.xml:40:17-77
+55-->/home/onyx/workspace/panchadika/app/src/main/AndroidManifest.xml:40:27-74
+56            </intent-filter>
+57        </activity>
+58
+59        <!-- SMS Receiver for incoming messages -->
+60        <receiver
+60-->/home/onyx/workspace/panchadika/app/src/main/AndroidManifest.xml:45:9-52:20
+61            android:name="com.panchadika.data.source.SmsReceiver"
+61-->/home/onyx/workspace/panchadika/app/src/main/AndroidManifest.xml:46:13-52
+62            android:exported="true"
+62-->/home/onyx/workspace/panchadika/app/src/main/AndroidManifest.xml:47:13-36
+63            android:permission="android.permission.BROADCAST_SMS" >
+63-->/home/onyx/workspace/panchadika/app/src/main/AndroidManifest.xml:48:13-66
+64            <intent-filter android:priority="999" >
+64-->/home/onyx/workspace/panchadika/app/src/main/AndroidManifest.xml:49:13-51:29
+64-->/home/onyx/workspace/panchadika/app/src/main/AndroidManifest.xml:49:28-50
+65                <action android:name="android.provider.Telephony.SMS_RECEIVED" />
+65-->/home/onyx/workspace/panchadika/app/src/main/AndroidManifest.xml:50:17-82
+65-->/home/onyx/workspace/panchadika/app/src/main/AndroidManifest.xml:50:25-79
+66            </intent-filter>
+67        </receiver>
+68
+69        <!-- MMS Receiver -->
+70        <receiver
+70-->/home/onyx/workspace/panchadika/app/src/main/AndroidManifest.xml:55:9-63:20
+71            android:name="com.panchadika.data.source.MmsReceiver"
+71-->/home/onyx/workspace/panchadika/app/src/main/AndroidManifest.xml:56:13-52
+72            android:exported="true"
+72-->/home/onyx/workspace/panchadika/app/src/main/AndroidManifest.xml:57:13-36
+73            android:permission="android.permission.BROADCAST_WAP_PUSH" >
+73-->/home/onyx/workspace/panchadika/app/src/main/AndroidManifest.xml:58:13-71
+74            <intent-filter android:priority="999" >
+74-->/home/onyx/workspace/panchadika/app/src/main/AndroidManifest.xml:59:13-62:29
+74-->/home/onyx/workspace/panchadika/app/src/main/AndroidManifest.xml:59:28-50
+75                <action android:name="android.provider.Telephony.WAP_PUSH_RECEIVED" />
+75-->/home/onyx/workspace/panchadika/app/src/main/AndroidManifest.xml:60:17-87
+75-->/home/onyx/workspace/panchadika/app/src/main/AndroidManifest.xml:60:25-84
+76
+77                <data android:mimeType="application/vnd.wap.mms-message" />
+77-->/home/onyx/workspace/panchadika/app/src/main/AndroidManifest.xml:61:17-76
+77-->/home/onyx/workspace/panchadika/app/src/main/AndroidManifest.xml:61:23-73
+78            </intent-filter>
+79        </receiver>
+80
+81        <!-- Default SMS App configuration -->
+82        <provider
+82-->/home/onyx/workspace/panchadika/app/src/main/AndroidManifest.xml:66:9-74:20
+83            android:name="com.panchadika.data.source.SmsProvider"
+83-->/home/onyx/workspace/panchadika/app/src/main/AndroidManifest.xml:67:13-52
+84            android:authorities="com.panchadika.provider"
+84-->/home/onyx/workspace/panchadika/app/src/main/AndroidManifest.xml:68:13-58
+85            android:exported="true"
+85-->/home/onyx/workspace/panchadika/app/src/main/AndroidManifest.xml:69:13-36
+86            android:grantUriPermissions="true"
+86-->/home/onyx/workspace/panchadika/app/src/main/AndroidManifest.xml:70:13-47
+87            android:readPermission="android.permission.READ_SMS"
+87-->/home/onyx/workspace/panchadika/app/src/main/AndroidManifest.xml:71:13-65
+88            android:writePermission="android.permission.WRITE_SMS" >
+88-->/home/onyx/workspace/panchadika/app/src/main/AndroidManifest.xml:72:13-67
+89            <grant-uri-permission android:pathPattern=".*" />
+89-->/home/onyx/workspace/panchadika/app/src/main/AndroidManifest.xml:73:13-62
+89-->/home/onyx/workspace/panchadika/app/src/main/AndroidManifest.xml:73:35-59
+90        </provider>
+91
+92        <activity
+92-->[androidx.compose.ui:ui-tooling-android:1.6.8] /home/onyx/.gradle/caches/8.9/transforms/c194886873215751d2ef2a41777adb66/transformed/ui-tooling-release/AndroidManifest.xml:23:9-25:39
+93            android:name="androidx.compose.ui.tooling.PreviewActivity"
+93-->[androidx.compose.ui:ui-tooling-android:1.6.8] /home/onyx/.gradle/caches/8.9/transforms/c194886873215751d2ef2a41777adb66/transformed/ui-tooling-release/AndroidManifest.xml:24:13-71
+94            android:exported="true" />
+94-->[androidx.compose.ui:ui-tooling-android:1.6.8] /home/onyx/.gradle/caches/8.9/transforms/c194886873215751d2ef2a41777adb66/transformed/ui-tooling-release/AndroidManifest.xml:25:13-36
+95        <activity
+95-->[androidx.compose.ui:ui-test-manifest:1.6.8] /home/onyx/.gradle/caches/8.9/transforms/10e272c0fc5ab2b1f676467e98447256/transformed/ui-test-manifest-1.6.8/AndroidManifest.xml:23:9-25:39
+96            android:name="androidx.activity.ComponentActivity"
+96-->[androidx.compose.ui:ui-test-manifest:1.6.8] /home/onyx/.gradle/caches/8.9/transforms/10e272c0fc5ab2b1f676467e98447256/transformed/ui-test-manifest-1.6.8/AndroidManifest.xml:24:13-63
+97            android:exported="true" />
+97-->[androidx.compose.ui:ui-test-manifest:1.6.8] /home/onyx/.gradle/caches/8.9/transforms/10e272c0fc5ab2b1f676467e98447256/transformed/ui-test-manifest-1.6.8/AndroidManifest.xml:25:13-36
+98
+99        <provider
+99-->[androidx.emoji2:emoji2:1.3.0] /home/onyx/.gradle/caches/8.9/transforms/31464af4d759fca39a92cc544bfb0f28/transformed/emoji2-1.3.0/AndroidManifest.xml:24:9-32:20
+100            android:name="androidx.startup.InitializationProvider"
+100-->[androidx.emoji2:emoji2:1.3.0] /home/onyx/.gradle/caches/8.9/transforms/31464af4d759fca39a92cc544bfb0f28/transformed/emoji2-1.3.0/AndroidManifest.xml:25:13-67
+101            android:authorities="com.panchadika.androidx-startup"
+101-->[androidx.emoji2:emoji2:1.3.0] /home/onyx/.gradle/caches/8.9/transforms/31464af4d759fca39a92cc544bfb0f28/transformed/emoji2-1.3.0/AndroidManifest.xml:26:13-68
+102            android:exported="false" >
+102-->[androidx.emoji2:emoji2:1.3.0] /home/onyx/.gradle/caches/8.9/transforms/31464af4d759fca39a92cc544bfb0f28/transformed/emoji2-1.3.0/AndroidManifest.xml:27:13-37
+103            <meta-data
+103-->[androidx.emoji2:emoji2:1.3.0] /home/onyx/.gradle/caches/8.9/transforms/31464af4d759fca39a92cc544bfb0f28/transformed/emoji2-1.3.0/AndroidManifest.xml:29:13-31:52
+104                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+104-->[androidx.emoji2:emoji2:1.3.0] /home/onyx/.gradle/caches/8.9/transforms/31464af4d759fca39a92cc544bfb0f28/transformed/emoji2-1.3.0/AndroidManifest.xml:30:17-75
+105                android:value="androidx.startup" />
+105-->[androidx.emoji2:emoji2:1.3.0] /home/onyx/.gradle/caches/8.9/transforms/31464af4d759fca39a92cc544bfb0f28/transformed/emoji2-1.3.0/AndroidManifest.xml:31:17-49
+106            <meta-data
+106-->[androidx.lifecycle:lifecycle-process:2.8.4] /home/onyx/.gradle/caches/8.9/transforms/ff263eb4ad176ba7de25120bdec298f5/transformed/lifecycle-process-2.8.4/AndroidManifest.xml:29:13-31:52
+107                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+107-->[androidx.lifecycle:lifecycle-process:2.8.4] /home/onyx/.gradle/caches/8.9/transforms/ff263eb4ad176ba7de25120bdec298f5/transformed/lifecycle-process-2.8.4/AndroidManifest.xml:30:17-78
+108                android:value="androidx.startup" />
+108-->[androidx.lifecycle:lifecycle-process:2.8.4] /home/onyx/.gradle/caches/8.9/transforms/ff263eb4ad176ba7de25120bdec298f5/transformed/lifecycle-process-2.8.4/AndroidManifest.xml:31:17-49
+109            <meta-data
+109-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/onyx/.gradle/caches/8.9/transforms/01c5ab882cbd0458bf0f1d9d07ec1d57/transformed/profileinstaller-1.3.1/AndroidManifest.xml:29:13-31:52
+110                android:name="androidx.profileinstaller.ProfileInstallerInitializer"
+110-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/onyx/.gradle/caches/8.9/transforms/01c5ab882cbd0458bf0f1d9d07ec1d57/transformed/profileinstaller-1.3.1/AndroidManifest.xml:30:17-85
+111                android:value="androidx.startup" />
+111-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/onyx/.gradle/caches/8.9/transforms/01c5ab882cbd0458bf0f1d9d07ec1d57/transformed/profileinstaller-1.3.1/AndroidManifest.xml:31:17-49
+112        </provider>
+113
+114        <service
+114-->[androidx.room:room-runtime:2.6.1] /home/onyx/.gradle/caches/8.9/transforms/c3c2158b0d66b901e6270ecb44bd9557/transformed/room-runtime-2.6.1/AndroidManifest.xml:24:9-28:63
+115            android:name="androidx.room.MultiInstanceInvalidationService"
+115-->[androidx.room:room-runtime:2.6.1] /home/onyx/.gradle/caches/8.9/transforms/c3c2158b0d66b901e6270ecb44bd9557/transformed/room-runtime-2.6.1/AndroidManifest.xml:25:13-74
+116            android:directBootAware="true"
+116-->[androidx.room:room-runtime:2.6.1] /home/onyx/.gradle/caches/8.9/transforms/c3c2158b0d66b901e6270ecb44bd9557/transformed/room-runtime-2.6.1/AndroidManifest.xml:26:13-43
+117            android:exported="false" />
+117-->[androidx.room:room-runtime:2.6.1] /home/onyx/.gradle/caches/8.9/transforms/c3c2158b0d66b901e6270ecb44bd9557/transformed/room-runtime-2.6.1/AndroidManifest.xml:27:13-37
+118
+119        <receiver
+119-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/onyx/.gradle/caches/8.9/transforms/01c5ab882cbd0458bf0f1d9d07ec1d57/transformed/profileinstaller-1.3.1/AndroidManifest.xml:34:9-52:20
+120            android:name="androidx.profileinstaller.ProfileInstallReceiver"
+120-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/onyx/.gradle/caches/8.9/transforms/01c5ab882cbd0458bf0f1d9d07ec1d57/transformed/profileinstaller-1.3.1/AndroidManifest.xml:35:13-76
+121            android:directBootAware="false"
+121-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/onyx/.gradle/caches/8.9/transforms/01c5ab882cbd0458bf0f1d9d07ec1d57/transformed/profileinstaller-1.3.1/AndroidManifest.xml:36:13-44
+122            android:enabled="true"
+122-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/onyx/.gradle/caches/8.9/transforms/01c5ab882cbd0458bf0f1d9d07ec1d57/transformed/profileinstaller-1.3.1/AndroidManifest.xml:37:13-35
+123            android:exported="true"
+123-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/onyx/.gradle/caches/8.9/transforms/01c5ab882cbd0458bf0f1d9d07ec1d57/transformed/profileinstaller-1.3.1/AndroidManifest.xml:38:13-36
+124            android:permission="android.permission.DUMP" >
+124-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/onyx/.gradle/caches/8.9/transforms/01c5ab882cbd0458bf0f1d9d07ec1d57/transformed/profileinstaller-1.3.1/AndroidManifest.xml:39:13-57
+125            <intent-filter>
+125-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/onyx/.gradle/caches/8.9/transforms/01c5ab882cbd0458bf0f1d9d07ec1d57/transformed/profileinstaller-1.3.1/AndroidManifest.xml:40:13-42:29
+126                <action android:name="androidx.profileinstaller.action.INSTALL_PROFILE" />
+126-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/onyx/.gradle/caches/8.9/transforms/01c5ab882cbd0458bf0f1d9d07ec1d57/transformed/profileinstaller-1.3.1/AndroidManifest.xml:41:17-91
+126-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/onyx/.gradle/caches/8.9/transforms/01c5ab882cbd0458bf0f1d9d07ec1d57/transformed/profileinstaller-1.3.1/AndroidManifest.xml:41:25-88
+127            </intent-filter>
+128            <intent-filter>
+128-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/onyx/.gradle/caches/8.9/transforms/01c5ab882cbd0458bf0f1d9d07ec1d57/transformed/profileinstaller-1.3.1/AndroidManifest.xml:43:13-45:29
+129                <action android:name="androidx.profileinstaller.action.SKIP_FILE" />
+129-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/onyx/.gradle/caches/8.9/transforms/01c5ab882cbd0458bf0f1d9d07ec1d57/transformed/profileinstaller-1.3.1/AndroidManifest.xml:44:17-85
+129-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/onyx/.gradle/caches/8.9/transforms/01c5ab882cbd0458bf0f1d9d07ec1d57/transformed/profileinstaller-1.3.1/AndroidManifest.xml:44:25-82
+130            </intent-filter>
+131            <intent-filter>
+131-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/onyx/.gradle/caches/8.9/transforms/01c5ab882cbd0458bf0f1d9d07ec1d57/transformed/profileinstaller-1.3.1/AndroidManifest.xml:46:13-48:29
+132                <action android:name="androidx.profileinstaller.action.SAVE_PROFILE" />
+132-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/onyx/.gradle/caches/8.9/transforms/01c5ab882cbd0458bf0f1d9d07ec1d57/transformed/profileinstaller-1.3.1/AndroidManifest.xml:47:17-88
+132-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/onyx/.gradle/caches/8.9/transforms/01c5ab882cbd0458bf0f1d9d07ec1d57/transformed/profileinstaller-1.3.1/AndroidManifest.xml:47:25-85
+133            </intent-filter>
+134            <intent-filter>
+134-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/onyx/.gradle/caches/8.9/transforms/01c5ab882cbd0458bf0f1d9d07ec1d57/transformed/profileinstaller-1.3.1/AndroidManifest.xml:49:13-51:29
+135                <action android:name="androidx.profileinstaller.action.BENCHMARK_OPERATION" />
+135-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/onyx/.gradle/caches/8.9/transforms/01c5ab882cbd0458bf0f1d9d07ec1d57/transformed/profileinstaller-1.3.1/AndroidManifest.xml:50:17-95
+135-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/onyx/.gradle/caches/8.9/transforms/01c5ab882cbd0458bf0f1d9d07ec1d57/transformed/profileinstaller-1.3.1/AndroidManifest.xml:50:25-92
+136            </intent-filter>
+137        </receiver>
+138    </application>
+139
+140</manifest>
