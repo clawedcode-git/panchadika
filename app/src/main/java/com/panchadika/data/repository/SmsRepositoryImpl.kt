@@ -1,9 +1,5 @@
 package com.panchadika.data.repository
 
-import com.panchadika.data.local.DataMappers.toDomain
-import com.panchadika.data.local.DataMappers.toEntity
-import com.panchadika.data.local.dao.ConversationDao
-import com.panchadika.data.local.dao.MessageDao
 import com.panchadika.data.source.ContactDataSource
 import com.panchadika.data.source.SmsDataSource
 import com.panchadika.domain.model.Conversation
@@ -15,15 +11,12 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
-import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
 class SmsRepositoryImpl @Inject constructor(
     private val smsDataSource: SmsDataSource,
-    private val conversationDao: ConversationDao,
-    private val messageDao: MessageDao,
     private val contactDataSource: ContactDataSource
 ) : SmsRepository {
 

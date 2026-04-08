@@ -1,27 +1,41 @@
 package com.panchadika.data.source
 
+import android.app.PendingIntent
+import android.content.BroadcastReceiver
 import android.content.ContentResolver
 import android.content.ContentUris
 import android.content.ContentValues
 import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
 import android.database.Cursor
 import android.net.Uri
 import android.os.Build
+import android.os.RemoteException
 import android.provider.Telephony
+import android.telephony.SmsManager
 import com.panchadika.domain.model.Message
 import com.panchadika.domain.model.MessageStatus
 import com.panchadika.domain.model.MessageType
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlinx.coroutines.withContext
+import java.util.ArrayList
 import javax.inject.Inject
 import javax.inject.Singleton
+import kotlin.coroutines.resume
 
 @Singleton
 class SmsDataSource @Inject constructor(
     @ApplicationContext private val context: Context
 ) {
     private val contentResolver: ContentResolver = context.contentResolver
+    private val smsManager: SmsManager = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+        context.getSystemService(SmsManager::class.java)
+    } else {
+        SmsManager.getDefault()
+    }
 
     fun getConversations(): List<Pair<Long, String>> {
         val conversations = mutableListOf<Pair<Long, String>>()
@@ -129,16 +143,55 @@ class SmsDataSource @Inject constructor(
     }
 
     suspend fun sendSms(address: String, body: String): Long = withContext(Dispatchers.IO) {
-        val values = ContentValues().apply {
-            put(Telephony.Sms.ADDRESS, address)
-            put(Telephony.Sms.BODY, body)
-            put(Telephony.Sms.DATE, System.currentTimeMillis())
-            put(Telephony.Sms.TYPE, Telephony.Sms.MESSAGE_TYPE_SENT)
-            put(Telephony.Sms.STATUS, Telephony.Sms.STATUS_COMPLETE)
-        }
+        try {
+            val sentIntent = PendingIntent.getBroadcast(
+                context,
+                0,
+                Intent("com.panchadika.SMS_SENT"),
+                PendingIntent.FLAG_IMMUTABLE
+            )
+            
+            val deliveredIntent = PendingIntent.getBroadcast(
+                context,
+                0,
+                Intent("com.panchadika.SMS_DELIVERED"),
+                PendingIntent.FLAG_IMMUTABLE
+            )
 
-        val uri = contentResolver.insert(Telephony.Sms.CONTENT_URI, values)
-        uri?.lastPathSegment?.toLongOrNull() ?: -1L
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                val smsManager = context.getSystemService(SmsManager::class.java)
+                val parts = smsManager.divideMessage(body)
+                val sentIntents = ArrayList<PendingIntent>()
+                sentIntents.add(sentIntent)
+                val deliveredIntents = ArrayList<PendingIntent>()
+                deliveredIntents.add(deliveredIntent)
+                smsManager.sendMultipartTextMessage(address, null, parts, sentIntents, deliveredIntents)
+            } else {
+                @Suppress("DEPRECATION")
+                val parts = smsManager.divideMessage(body)
+                val sentIntents = ArrayList<PendingIntent>()
+                sentIntents.add(sentIntent)
+                val deliveredIntents = ArrayList<PendingIntent>()
+                deliveredIntents.add(deliveredIntent)
+                smsManager.sendMultipartTextMessage(address, null, parts, sentIntents, deliveredIntents)
+            }
+
+            val threadId = getOrCreateThreadId(address)
+            val values = ContentValues().apply {
+                put(Telephony.Sms.ADDRESS, address)
+                put(Telephony.Sms.BODY, body)
+                put(Telephony.Sms.DATE, System.currentTimeMillis())
+                put(Telephony.Sms.TYPE, Telephony.Sms.MESSAGE_TYPE_SENT)
+                put(Telephony.Sms.STATUS, Telephony.Sms.STATUS_PENDING)
+                put(Telephony.Sms.THREAD_ID, threadId)
+            }
+
+            val uri = contentResolver.insert(Telephony.Sms.CONTENT_URI, values)
+            uri?.lastPathSegment?.toLongOrNull() ?: -1L
+        } catch (e: Exception) {
+            e.printStackTrace()
+            -1L
+        }
     }
 
     fun markThreadAsRead(threadId: Long) {

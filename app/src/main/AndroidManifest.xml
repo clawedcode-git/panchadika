@@ -39,7 +39,21 @@
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+            <!-- Default SMS app intent filter -->
+            <intent-filter>
+                <action android:name="android.intent.action.SEND" />
+                <action android:name="android.intent.action.SENDTO" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="sms" />
+                <data android:scheme="smsto" />
+            </intent-filter>
         </activity>
+
+        <!-- Default SMS App meta-data -->
+        <meta-data
+            android:name="android.provider.Telephony.SMS_RECEIVER"
+            android:value="true" />
 
         <!-- SMS Receiver for incoming messages -->
         <receiver
