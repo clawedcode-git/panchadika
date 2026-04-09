@@ -1,6 +1,9 @@
 package com.panchadika.presentation
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
+import androidx.navigation.NavBackStackEntry
+import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -22,9 +25,9 @@ sealed class Screen(val route: String) {
 }
 
 @Composable
-fun PanchadikaNavHost() {
-    val navController = rememberNavController()
-
+fun PanchadikaNavHost(
+    navController: NavHostController = rememberNavController()
+) {
     NavHost(
         navController = navController,
         startDestination = Screen.ConversationList.route
@@ -92,3 +95,5 @@ fun PanchadikaNavHost() {
         }
     }
 }
+
+fun NavHostController.canGoBack(): Boolean = currentBackStackEntry != null

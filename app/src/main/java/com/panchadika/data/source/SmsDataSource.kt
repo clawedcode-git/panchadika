@@ -14,6 +14,7 @@ import android.os.Build
 import android.os.RemoteException
 import android.provider.Telephony
 import android.telephony.SmsManager
+import com.panchadika.domain.model.Conversation
 import com.panchadika.domain.model.Message
 import com.panchadika.domain.model.MessageStatus
 import com.panchadika.domain.model.MessageType
@@ -37,23 +38,57 @@ class SmsDataSource @Inject constructor(
         SmsManager.getDefault()
     }
 
-    fun getConversations(): List<Pair<Long, String>> {
-        val conversations = mutableListOf<Pair<Long, String>>()
+    fun getConversations(): List<Conversation> {
+        val conversations = mutableListOf<Conversation>()
         
         val uri = Telephony.Sms.Conversations.CONTENT_URI
         val projection = arrayOf(
-            Telephony.Sms.Conversations._ID,
-            Telephony.Sms.Conversations.ADDRESS
+            "thread_id",
+            "snippet",
+            "msg_count"
         )
 
         contentResolver.query(uri, projection, null, null, null)?.use { cursor ->
+            val threadIdIndex = cursor.getColumnIndex("thread_id")
+            val snippetIndex = cursor.getColumnIndex("snippet")
+            val msgCountIndex = cursor.getColumnIndex("msg_count")
+            
             while (cursor.moveToNext()) {
-                val threadId = cursor.getLong(0)
-                val address = cursor.getString(1) ?: continue
-                conversations.add(threadId to address)
+                val threadId = cursor.getLong(threadIdIndex)
+                val snippet = cursor.getString(snippetIndex) ?: ""
+                val msgCount = cursor.getInt(msgCountIndex)
+                
+                // Get address and date from the first message in this thread
+                val (address, timestamp) = getAddressAndDateForThread(threadId)
+                
+                conversations.add(Conversation(
+                    id = threadId,
+                    address = address,
+                    contactName = address,
+                    snippet = snippet,
+                    timestamp = timestamp,
+                    unreadCount = 0,
+                    isRead = true
+                ))
             }
         }
         return conversations
+    }
+
+    private fun getAddressAndDateForThread(threadId: Long): Pair<String, Long> {
+        val uri = Telephony.Sms.CONTENT_URI
+        val selection = "${Telephony.Sms.THREAD_ID} = ?"
+        val selectionArgs = arrayOf(threadId.toString())
+        val projection = arrayOf(Telephony.Sms.ADDRESS, Telephony.Sms.DATE)
+        
+        contentResolver.query(uri, projection, selection, selectionArgs, "date DESC LIMIT 1")?.use { cursor ->
+            if (cursor.moveToFirst()) {
+                val address = cursor.getString(0) ?: ""
+                val date = cursor.getLong(1)
+                return address to date
+            }
+        }
+        return "" to System.currentTimeMillis()
     }
 
     fun getMessagesForThread(threadId: Long): List<Message> {
@@ -144,49 +179,54 @@ class SmsDataSource @Inject constructor(
 
     suspend fun sendSms(address: String, body: String): Long = withContext(Dispatchers.IO) {
         try {
-            val sentIntent = PendingIntent.getBroadcast(
-                context,
-                0,
-                Intent("com.panchadika.SMS_SENT"),
-                PendingIntent.FLAG_IMMUTABLE
-            )
-            
-            val deliveredIntent = PendingIntent.getBroadcast(
-                context,
-                0,
-                Intent("com.panchadika.SMS_DELIVERED"),
-                PendingIntent.FLAG_IMMUTABLE
-            )
-
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-                val smsManager = context.getSystemService(SmsManager::class.java)
-                val parts = smsManager.divideMessage(body)
-                val sentIntents = ArrayList<PendingIntent>()
-                sentIntents.add(sentIntent)
-                val deliveredIntents = ArrayList<PendingIntent>()
-                deliveredIntents.add(deliveredIntent)
-                smsManager.sendMultipartTextMessage(address, null, parts, sentIntents, deliveredIntents)
-            } else {
-                @Suppress("DEPRECATION")
-                val parts = smsManager.divideMessage(body)
-                val sentIntents = ArrayList<PendingIntent>()
-                sentIntents.add(sentIntent)
-                val deliveredIntents = ArrayList<PendingIntent>()
-                deliveredIntents.add(deliveredIntent)
-                smsManager.sendMultipartTextMessage(address, null, parts, sentIntents, deliveredIntents)
-            }
-
             val threadId = getOrCreateThreadId(address)
             val values = ContentValues().apply {
                 put(Telephony.Sms.ADDRESS, address)
                 put(Telephony.Sms.BODY, body)
                 put(Telephony.Sms.DATE, System.currentTimeMillis())
                 put(Telephony.Sms.TYPE, Telephony.Sms.MESSAGE_TYPE_SENT)
-                put(Telephony.Sms.STATUS, Telephony.Sms.STATUS_PENDING)
+                put(Telephony.Sms.STATUS, Telephony.Sms.STATUS_COMPLETE)
                 put(Telephony.Sms.THREAD_ID, threadId)
             }
 
             val uri = contentResolver.insert(Telephony.Sms.CONTENT_URI, values)
+            
+            val sentIntent = PendingIntent.getBroadcast(
+                context,
+                0,
+                Intent("com.panchadika.SMS_SENT"),
+                PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
+            )
+            
+            val deliveredIntent = PendingIntent.getBroadcast(
+                context,
+                0,
+                Intent("com.panchadika.SMS_DELIVERED"),
+                PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
+            )
+
+            try {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                    val smsManager = context.getSystemService(SmsManager::class.java)
+                    val parts = smsManager.divideMessage(body)
+                    val sentIntents = ArrayList<PendingIntent>()
+                    sentIntents.add(sentIntent)
+                    val deliveredIntents = ArrayList<PendingIntent>()
+                    deliveredIntents.add(deliveredIntent)
+                    smsManager.sendMultipartTextMessage(address, null, parts, sentIntents, deliveredIntents)
+                } else {
+                    @Suppress("DEPRECATION")
+                    val parts = smsManager.divideMessage(body)
+                    val sentIntents = ArrayList<PendingIntent>()
+                    sentIntents.add(sentIntent)
+                    val deliveredIntents = ArrayList<PendingIntent>()
+                    deliveredIntents.add(deliveredIntent)
+                    smsManager.sendMultipartTextMessage(address, null, parts, sentIntents, deliveredIntents)
+                }
+            } catch (e: Exception) {
+                // SMS sending failed - just continue
+            }
+
             uri?.lastPathSegment?.toLongOrNull() ?: -1L
         } catch (e: Exception) {
             e.printStackTrace()

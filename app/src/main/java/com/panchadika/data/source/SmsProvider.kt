@@ -59,7 +59,7 @@ class SmsProvider : ContentProvider() {
                 context.contentResolver.query(
                     Telephony.Sms.Conversations.CONTENT_URI,
                     projection,
-                    "${Telephony.Sms.Conversations._ID} = ?",
+                    "thread_id = ?",
                     arrayOf(threadId.toString()),
                     sortOrder
                 )

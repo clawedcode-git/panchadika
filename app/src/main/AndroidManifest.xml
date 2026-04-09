@@ -17,6 +17,26 @@
 
     <!-- Default SMS App requirements -->
     <uses-permission android:name="android.permission.RECEIVE_MMS" />
+    <uses-permission android:name="android.permission.WRITE_SMS" />
+    
+    <!-- Default SMS app declaration -->
+    <uses-permission android:name="android.permission.READ_SMS" />
+
+    <!-- Query for default SMS app requirements -->
+    <queries>
+        <intent>
+            <action android:name="android.intent.action.SENDTO" />
+            <data android:scheme="sms" />
+        </intent>
+        <intent>
+            <action android:name="android.intent.action.SENDTO" />
+            <data android:scheme="smsto" />
+        </intent>
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+            <data android:mimeType="vnd.android.cursor.dir/sms" />
+        </intent>
+    </queries>
 
     <application
         android:name=".PanchadikaApp"
@@ -34,19 +54,34 @@
         <activity
             android:name=".presentation.MainActivity"
             android:exported="true"
+            android:launchMode="singleTop"
             android:theme="@style/Theme.Panchadika">
+            <!-- Launcher -->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-            <!-- Default SMS app intent filter -->
-            <intent-filter>
+            
+            <!-- Default SMS App - SEND intents -->
+            <intent-filter android:exported="true" android:priority="100">
                 <action android:name="android.intent.action.SEND" />
                 <action android:name="android.intent.action.SENDTO" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
                 <data android:scheme="sms" />
                 <data android:scheme="smsto" />
+                <data android:scheme="mms" />
+                <data android:scheme="mmsto" />
+            </intent-filter>
+            
+            <!-- Direct launch SMS -->
+            <intent-filter android:exported="true" android:priority="100">
+                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.VIEW" />
+                <action android:name="android.intent.action.CONVERSATION" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.LAUNCHER" />
+                <data android:scheme="sms" />
             </intent-filter>
         </activity>
 
