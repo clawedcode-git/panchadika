@@ -1,0 +1,14 @@
+uploads = []
+outputs = []
+
+[[generated]]
+id = "ROstThHNVcvlsTmPdRDbL"
+uri = "file://attached_assets/generated_images/app_icon_source.png"
+type = "image"
+title = "panchadika sms app icon clean"
+
+[[generated]]
+id = "rN3JMnJ5TxyG3-eWMKD88"
+uri = "file://attached_assets/generated_images/app_icon_foreground.png"
+type = "image"
+title = "chat bubble foreground transparent"
