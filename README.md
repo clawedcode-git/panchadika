@@ -1,6 +1,5 @@
 <!-- Logo/Header -->
 <div align="center">
-  <img src="https://raw.githubusercontent.com/clawedcode-git/panchadika/master/app/src/main/res/drawable/ic_launcher_foreground.xml" alt="Panchadika" width="120" height="120">
   <h1>Panchadika</h1>
   <p>A modern Android SMS application with elegant E-Chat design</p>
 </div>
@@ -8,10 +7,9 @@
 <!-- Badges -->
 <div align="center">
 
-[![Android](https://img.shields.io/badge/Android-34-success?style=flat&logo=android)](https://developer.android.com)
-[![Kotlin](https://img.shields.io/badge/Kotlin-1.9-blue?style=flat&logo=kotlin)](https://kotlinlang.org)
-[![License](https://img.shields.io/badge/License-MIT-green?style=flat)](LICENSE)
-[![Platform](https://img.shields.io/badge/Platform-Android-brightgreen?style=flat&logo=android)](https://developer.android.com)
+| Android | Kotlin | License | Platform |
+|---------|---------|---------|----------|
+| ![Android](https://img.shields.io/badge/Android-34-success) | ![Kotlin](https://img.shields.io/badge/Kotlin-1.9-blue) | ![License](https://img.shields.io/badge/License-MIT-green) | ![Platform](https://img.shields.io/badge/Platform-Android-brightgreen) |
 
 </div>
 
