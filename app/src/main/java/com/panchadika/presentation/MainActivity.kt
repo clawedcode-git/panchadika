@@ -6,6 +6,7 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.provider.Settings
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.result.contract.ActivityResultContracts
@@ -47,7 +48,28 @@ class MainActivity : ComponentActivity() {
     ) { permissions ->
         val allGranted = permissions.all { it.value }
         if (!allGranted) {
-            // Some permissions were denied - app may have limited functionality
+            val deniedPermissions = permissions.filter { !it.value }.keys
+            if (deniedPermissions.any { it.contains("SMS") }) {
+                showPermissionRationale()
+            }
+        }
+    }
+
+    private fun showPermissionRationale() {
+        android.app.AlertDialog.Builder(this)
+            .setTitle("SMS Permission Required")
+            .setMessage("Panchadika needs SMS permissions to send and receive messages. Please grant the permissions in Settings.")
+            .setPositiveButton("Open Settings") { _, _ ->
+                openAppSettings()
+            }
+            .setNegativeButton("Cancel", null)
+            .show()
+    }
+
+    private fun openAppSettings() {
+        Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).apply {
+            data = Uri.fromParts("package", packageName, null)
+            startActivity(this)
         }
     }
 
@@ -69,9 +91,22 @@ class MainActivity : ComponentActivity() {
         }
     }
 
-    override fun onNewIntent(intent: Intent) {
-        super.onNewIntent(intent)
-        handleIntent(intent)
+    override fun onResume() {
+        super.onResume()
+        checkPermissionsAndShowRationaleIfNeeded()
+    }
+
+    private fun checkPermissionsAndShowRationaleIfNeeded() {
+        val missingPermissions = requiredPermissions.filter { permission ->
+            ContextCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED
+        }
+        
+        if (missingPermissions.isNotEmpty()) {
+            val hasSmsPermission = missingPermissions.any { it.contains("SMS") }
+            if (hasSmsPermission && shouldShowRequestPermissionRationale(Manifest.permission.READ_SMS)) {
+                showPermissionRationale()
+            }
+        }
     }
 
     private fun handleIntent(intent: Intent?) {
