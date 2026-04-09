@@ -206,23 +206,18 @@ class SmsDataSource @Inject constructor(
             )
 
             try {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-                    val smsManager = context.getSystemService(SmsManager::class.java)
-                    val parts = smsManager.divideMessage(body)
-                    val sentIntents = ArrayList<PendingIntent>()
-                    sentIntents.add(sentIntent)
-                    val deliveredIntents = ArrayList<PendingIntent>()
-                    deliveredIntents.add(deliveredIntent)
-                    smsManager.sendMultipartTextMessage(address, null, parts, sentIntents, deliveredIntents)
+                val smsManager = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                    context.getSystemService(SmsManager::class.java)
                 } else {
                     @Suppress("DEPRECATION")
-                    val parts = smsManager.divideMessage(body)
-                    val sentIntents = ArrayList<PendingIntent>()
-                    sentIntents.add(sentIntent)
-                    val deliveredIntents = ArrayList<PendingIntent>()
-                    deliveredIntents.add(deliveredIntent)
-                    smsManager.sendMultipartTextMessage(address, null, parts, sentIntents, deliveredIntents)
+                    SmsManager.getDefault()
                 }
+                val parts = smsManager.divideMessage(body)
+                val sentIntents = ArrayList<PendingIntent>()
+                sentIntents.add(sentIntent)
+                val deliveredIntents = ArrayList<PendingIntent>()
+                deliveredIntents.add(deliveredIntent)
+                smsManager.sendMultipartTextMessage(address, null, parts, sentIntents, deliveredIntents)
             } catch (e: Exception) {
                 // SMS sending failed - just continue
             }
