@@ -9,14 +9,16 @@ An Android SMS application with carrier auto-detection, conversation management,
 - **New Message Composition**: Send SMS to any contact
 - **Settings**: View carrier and network information
 - **E-Chat Design**: Teal green (#44FC94) primary with yellow (#F8DC89) accent
+- **Default SMS App**: Can be set as default SMS app on Android
+- **System Integration**: Handles incoming SMS and responds to SMS intents
 
 ## Tech Stack
 
 - Kotlin + Jetpack Compose
 - Clean Architecture + MVVM
 - Hilt for Dependency Injection
-- Room for Local Database
 - Coroutines + Flow for Async Operations
+- Direct SMS content provider access
 
 ## Build
 
