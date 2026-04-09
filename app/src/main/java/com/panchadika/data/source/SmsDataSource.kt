@@ -94,7 +94,8 @@ class SmsDataSource @Inject constructor(
     fun getMessagesForThread(threadId: Long): List<Message> {
         val messages = mutableListOf<Message>()
         
-        val uri = Telephony.Sms.CONTENT_URI
+        // Use inbox URI which has fewer restrictions
+        val uri = Telephony.Sms.Inbox.CONTENT_URI
         val selection = "${Telephony.Sms.THREAD_ID} = ?"
         val selectionArgs = arrayOf(threadId.toString())
         val projection = arrayOf(
@@ -119,7 +120,8 @@ class SmsDataSource @Inject constructor(
     fun getMessagesByAddress(address: String): List<Message> {
         val messages = mutableListOf<Message>()
         
-        val uri = Telephony.Sms.CONTENT_URI
+        // Use inbox URI which has fewer restrictions
+        val uri = Telephony.Sms.Inbox.CONTENT_URI
         val selection = "${Telephony.Sms.ADDRESS} = ?"
         val selectionArgs = arrayOf(address)
         val projection = arrayOf(
