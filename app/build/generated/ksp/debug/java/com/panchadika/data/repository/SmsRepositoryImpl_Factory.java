@@ -1,7 +1,5 @@
 package com.panchadika.data.repository;
 
-import com.panchadika.data.local.dao.ConversationDao;
-import com.panchadika.data.local.dao.MessageDao;
 import com.panchadika.data.source.ContactDataSource;
 import com.panchadika.data.source.SmsDataSource;
 import dagger.internal.DaggerGenerated;
@@ -28,34 +26,26 @@ import javax.inject.Provider;
 public final class SmsRepositoryImpl_Factory implements Factory<SmsRepositoryImpl> {
   private final Provider<SmsDataSource> smsDataSourceProvider;
 
-  private final Provider<ConversationDao> conversationDaoProvider;
-
-  private final Provider<MessageDao> messageDaoProvider;
-
   private final Provider<ContactDataSource> contactDataSourceProvider;
 
   public SmsRepositoryImpl_Factory(Provider<SmsDataSource> smsDataSourceProvider,
-      Provider<ConversationDao> conversationDaoProvider, Provider<MessageDao> messageDaoProvider,
       Provider<ContactDataSource> contactDataSourceProvider) {
     this.smsDataSourceProvider = smsDataSourceProvider;
-    this.conversationDaoProvider = conversationDaoProvider;
-    this.messageDaoProvider = messageDaoProvider;
     this.contactDataSourceProvider = contactDataSourceProvider;
   }
 
   @Override
   public SmsRepositoryImpl get() {
-    return newInstance(smsDataSourceProvider.get(), conversationDaoProvider.get(), messageDaoProvider.get(), contactDataSourceProvider.get());
+    return newInstance(smsDataSourceProvider.get(), contactDataSourceProvider.get());
   }
 
   public static SmsRepositoryImpl_Factory create(Provider<SmsDataSource> smsDataSourceProvider,
-      Provider<ConversationDao> conversationDaoProvider, Provider<MessageDao> messageDaoProvider,
       Provider<ContactDataSource> contactDataSourceProvider) {
-    return new SmsRepositoryImpl_Factory(smsDataSourceProvider, conversationDaoProvider, messageDaoProvider, contactDataSourceProvider);
+    return new SmsRepositoryImpl_Factory(smsDataSourceProvider, contactDataSourceProvider);
   }
 
   public static SmsRepositoryImpl newInstance(SmsDataSource smsDataSource,
-      ConversationDao conversationDao, MessageDao messageDao, ContactDataSource contactDataSource) {
-    return new SmsRepositoryImpl(smsDataSource, conversationDao, messageDao, contactDataSource);
+      ContactDataSource contactDataSource) {
+    return new SmsRepositoryImpl(smsDataSource, contactDataSource);
   }
 }

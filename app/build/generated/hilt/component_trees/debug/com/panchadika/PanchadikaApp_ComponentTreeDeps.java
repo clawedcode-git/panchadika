@@ -18,9 +18,7 @@ import dagger.hilt.processor.internal.definecomponent.codegen._dagger_hilt_andro
 import dagger.hilt.processor.internal.definecomponent.codegen._dagger_hilt_android_internal_builders_ViewWithFragmentComponentBuilder;
 import dagger.hilt.processor.internal.definecomponent.codegen._dagger_hilt_components_SingletonComponent;
 import hilt_aggregated_deps._com_panchadika_PanchadikaApp_GeneratedInjector;
-import hilt_aggregated_deps._com_panchadika_data_source_MmsReceiver_GeneratedInjector;
 import hilt_aggregated_deps._com_panchadika_data_source_SmsReceiver_GeneratedInjector;
-import hilt_aggregated_deps._com_panchadika_di_DatabaseModule;
 import hilt_aggregated_deps._com_panchadika_di_RepositoryModule;
 import hilt_aggregated_deps._com_panchadika_presentation_MainActivity_GeneratedInjector;
 import hilt_aggregated_deps._com_panchadika_presentation_conversation_ConversationListViewModel_HiltModules_BindsModule;
@@ -72,9 +70,7 @@ import hilt_aggregated_deps._dagger_hilt_android_internal_modules_HiltWrapper_Ac
     },
     aggregatedDeps = {
         _com_panchadika_PanchadikaApp_GeneratedInjector.class,
-        _com_panchadika_data_source_MmsReceiver_GeneratedInjector.class,
         _com_panchadika_data_source_SmsReceiver_GeneratedInjector.class,
-        _com_panchadika_di_DatabaseModule.class,
         _com_panchadika_di_RepositoryModule.class,
         _com_panchadika_presentation_MainActivity_GeneratedInjector.class,
         _com_panchadika_presentation_conversation_ConversationListViewModel_HiltModules_BindsModule.class,

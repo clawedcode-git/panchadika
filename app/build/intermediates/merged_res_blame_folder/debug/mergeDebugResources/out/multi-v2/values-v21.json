@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "com.panchadika.app-mergeDebugResources-62:/values-v21/values-v21.xml",
+            "outputFile": "com.panchadika.app-mergeDebugResources-58:/values-v21/values-v21.xml",
             "map": [
                 {
-                    "source": "/home/onyx/.gradle/caches/8.9/transforms/089d4aef7ae505e0293c4f58bb318def/transformed/core-1.13.1/res/values-v21/values-v21.xml",
+                    "source": "/home/runner/.gradle/caches/8.9/transforms/089d4aef7ae505e0293c4f58bb318def/transformed/core-1.13.1/res/values-v21/values-v21.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9,10,13",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4",

@@ -1,8 +1,6 @@
 package com.panchadika;
 
-import com.panchadika.data.source.MmsReceiver_GeneratedInjector;
 import com.panchadika.data.source.SmsReceiver_GeneratedInjector;
-import com.panchadika.di.DatabaseModule;
 import com.panchadika.di.RepositoryModule;
 import com.panchadika.presentation.MainActivity_GeneratedInjector;
 import com.panchadika.presentation.conversation.ConversationListViewModel_HiltModules;
@@ -134,7 +132,6 @@ public final class PanchadikaApp_HiltComponents {
   @Component(
       modules = {
           ApplicationContextModule.class,
-          DatabaseModule.class,
           HiltWrapper_FragmentGetContextFix_FragmentGetContextFixModule.class,
           ActivityRetainedCBuilderModule.class,
           ServiceCBuilderModule.class,
@@ -143,7 +140,6 @@ public final class PanchadikaApp_HiltComponents {
   )
   @Singleton
   public abstract static class SingletonC implements PanchadikaApp_GeneratedInjector,
-      MmsReceiver_GeneratedInjector,
       SmsReceiver_GeneratedInjector,
       FragmentGetContextFix.FragmentGetContextFixEntryPoint,
       HiltWrapper_ActivityRetainedComponentManager_ActivityRetainedComponentBuilderEntryPoint,

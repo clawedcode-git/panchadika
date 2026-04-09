@@ -6,19 +6,12 @@ import android.view.View;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.SavedStateHandle;
 import androidx.lifecycle.ViewModel;
-import com.panchadika.data.local.PanchadikaDatabase;
-import com.panchadika.data.local.dao.ConversationDao;
-import com.panchadika.data.local.dao.MessageDao;
 import com.panchadika.data.repository.CarrierRepositoryImpl;
 import com.panchadika.data.repository.SmsRepositoryImpl;
 import com.panchadika.data.source.CarrierDataSource;
 import com.panchadika.data.source.ContactDataSource;
-import com.panchadika.data.source.MmsReceiver;
 import com.panchadika.data.source.SmsDataSource;
 import com.panchadika.data.source.SmsReceiver;
-import com.panchadika.di.DatabaseModule_ProvideConversationDaoFactory;
-import com.panchadika.di.DatabaseModule_ProvideDatabaseFactory;
-import com.panchadika.di.DatabaseModule_ProvideMessageDaoFactory;
 import com.panchadika.domain.usecase.GetCarrierInfoUseCase;
 import com.panchadika.domain.usecase.GetConversationsUseCase;
 import com.panchadika.domain.usecase.GetMessagesUseCase;
@@ -382,7 +375,7 @@ public final class DaggerPanchadikaApp_HiltComponents_SingletonC {
     }
 
     @Override
-    public void injectMainActivity(MainActivity mainActivity) {
+    public void injectMainActivity(MainActivity arg0) {
     }
 
     @Override
@@ -416,9 +409,9 @@ public final class DaggerPanchadikaApp_HiltComponents_SingletonC {
 
       static String com_panchadika_presentation_conversation_ConversationListViewModel = "com.panchadika.presentation.conversation.ConversationListViewModel";
 
-      static String com_panchadika_presentation_settings_SettingsViewModel = "com.panchadika.presentation.settings.SettingsViewModel";
-
       static String com_panchadika_presentation_newmessage_NewMessageViewModel = "com.panchadika.presentation.newmessage.NewMessageViewModel";
+
+      static String com_panchadika_presentation_settings_SettingsViewModel = "com.panchadika.presentation.settings.SettingsViewModel";
 
       @KeepFieldType
       ThreadViewModel com_panchadika_presentation_thread_ThreadViewModel2;
@@ -427,10 +420,10 @@ public final class DaggerPanchadikaApp_HiltComponents_SingletonC {
       ConversationListViewModel com_panchadika_presentation_conversation_ConversationListViewModel2;
 
       @KeepFieldType
-      SettingsViewModel com_panchadika_presentation_settings_SettingsViewModel2;
+      NewMessageViewModel com_panchadika_presentation_newmessage_NewMessageViewModel2;
 
       @KeepFieldType
-      NewMessageViewModel com_panchadika_presentation_newmessage_NewMessageViewModel2;
+      SettingsViewModel com_panchadika_presentation_settings_SettingsViewModel2;
     }
   }
 
@@ -496,25 +489,25 @@ public final class DaggerPanchadikaApp_HiltComponents_SingletonC {
 
     @IdentifierNameString
     private static final class LazyClassKeyProvider {
-      static String com_panchadika_presentation_conversation_ConversationListViewModel = "com.panchadika.presentation.conversation.ConversationListViewModel";
-
-      static String com_panchadika_presentation_newmessage_NewMessageViewModel = "com.panchadika.presentation.newmessage.NewMessageViewModel";
-
       static String com_panchadika_presentation_settings_SettingsViewModel = "com.panchadika.presentation.settings.SettingsViewModel";
 
       static String com_panchadika_presentation_thread_ThreadViewModel = "com.panchadika.presentation.thread.ThreadViewModel";
 
-      @KeepFieldType
-      ConversationListViewModel com_panchadika_presentation_conversation_ConversationListViewModel2;
+      static String com_panchadika_presentation_conversation_ConversationListViewModel = "com.panchadika.presentation.conversation.ConversationListViewModel";
 
-      @KeepFieldType
-      NewMessageViewModel com_panchadika_presentation_newmessage_NewMessageViewModel2;
+      static String com_panchadika_presentation_newmessage_NewMessageViewModel = "com.panchadika.presentation.newmessage.NewMessageViewModel";
 
       @KeepFieldType
       SettingsViewModel com_panchadika_presentation_settings_SettingsViewModel2;
 
       @KeepFieldType
       ThreadViewModel com_panchadika_presentation_thread_ThreadViewModel2;
+
+      @KeepFieldType
+      ConversationListViewModel com_panchadika_presentation_conversation_ConversationListViewModel2;
+
+      @KeepFieldType
+      NewMessageViewModel com_panchadika_presentation_newmessage_NewMessageViewModel2;
     }
 
     private static final class SwitchingProvider<T> implements Provider<T> {
@@ -632,12 +625,6 @@ public final class DaggerPanchadikaApp_HiltComponents_SingletonC {
 
     private Provider<SmsDataSource> smsDataSourceProvider;
 
-    private Provider<PanchadikaDatabase> provideDatabaseProvider;
-
-    private Provider<ConversationDao> provideConversationDaoProvider;
-
-    private Provider<MessageDao> provideMessageDaoProvider;
-
     private Provider<ContactDataSource> contactDataSourceProvider;
 
     private Provider<SmsRepositoryImpl> smsRepositoryImplProvider;
@@ -655,25 +642,18 @@ public final class DaggerPanchadikaApp_HiltComponents_SingletonC {
     @SuppressWarnings("unchecked")
     private void initialize(final ApplicationContextModule applicationContextModuleParam) {
       this.smsDataSourceProvider = DoubleCheck.provider(new SwitchingProvider<SmsDataSource>(singletonCImpl, 1));
-      this.provideDatabaseProvider = DoubleCheck.provider(new SwitchingProvider<PanchadikaDatabase>(singletonCImpl, 3));
-      this.provideConversationDaoProvider = DoubleCheck.provider(new SwitchingProvider<ConversationDao>(singletonCImpl, 2));
-      this.provideMessageDaoProvider = DoubleCheck.provider(new SwitchingProvider<MessageDao>(singletonCImpl, 4));
-      this.contactDataSourceProvider = DoubleCheck.provider(new SwitchingProvider<ContactDataSource>(singletonCImpl, 5));
+      this.contactDataSourceProvider = DoubleCheck.provider(new SwitchingProvider<ContactDataSource>(singletonCImpl, 2));
       this.smsRepositoryImplProvider = DoubleCheck.provider(new SwitchingProvider<SmsRepositoryImpl>(singletonCImpl, 0));
-      this.carrierDataSourceProvider = DoubleCheck.provider(new SwitchingProvider<CarrierDataSource>(singletonCImpl, 7));
-      this.carrierRepositoryImplProvider = DoubleCheck.provider(new SwitchingProvider<CarrierRepositoryImpl>(singletonCImpl, 6));
+      this.carrierDataSourceProvider = DoubleCheck.provider(new SwitchingProvider<CarrierDataSource>(singletonCImpl, 4));
+      this.carrierRepositoryImplProvider = DoubleCheck.provider(new SwitchingProvider<CarrierRepositoryImpl>(singletonCImpl, 3));
     }
 
     @Override
-    public void injectPanchadikaApp(PanchadikaApp panchadikaApp) {
+    public void injectPanchadikaApp(PanchadikaApp arg0) {
     }
 
     @Override
-    public void injectMmsReceiver(MmsReceiver mmsReceiver) {
-    }
-
-    @Override
-    public void injectSmsReceiver(SmsReceiver smsReceiver) {
+    public void injectSmsReceiver(SmsReceiver arg0) {
     }
 
     @Override
@@ -706,27 +686,18 @@ public final class DaggerPanchadikaApp_HiltComponents_SingletonC {
       public T get() {
         switch (id) {
           case 0: // com.panchadika.data.repository.SmsRepositoryImpl 
-          return (T) new SmsRepositoryImpl(singletonCImpl.smsDataSourceProvider.get(), singletonCImpl.provideConversationDaoProvider.get(), singletonCImpl.provideMessageDaoProvider.get(), singletonCImpl.contactDataSourceProvider.get());
+          return (T) new SmsRepositoryImpl(singletonCImpl.smsDataSourceProvider.get(), singletonCImpl.contactDataSourceProvider.get());
 
           case 1: // com.panchadika.data.source.SmsDataSource 
           return (T) new SmsDataSource(ApplicationContextModule_ProvideContextFactory.provideContext(singletonCImpl.applicationContextModule));
 
-          case 2: // com.panchadika.data.local.dao.ConversationDao 
-          return (T) DatabaseModule_ProvideConversationDaoFactory.provideConversationDao(singletonCImpl.provideDatabaseProvider.get());
-
-          case 3: // com.panchadika.data.local.PanchadikaDatabase 
-          return (T) DatabaseModule_ProvideDatabaseFactory.provideDatabase(ApplicationContextModule_ProvideContextFactory.provideContext(singletonCImpl.applicationContextModule));
-
-          case 4: // com.panchadika.data.local.dao.MessageDao 
-          return (T) DatabaseModule_ProvideMessageDaoFactory.provideMessageDao(singletonCImpl.provideDatabaseProvider.get());
-
-          case 5: // com.panchadika.data.source.ContactDataSource 
+          case 2: // com.panchadika.data.source.ContactDataSource 
           return (T) new ContactDataSource(ApplicationContextModule_ProvideContextFactory.provideContext(singletonCImpl.applicationContextModule));
 
-          case 6: // com.panchadika.data.repository.CarrierRepositoryImpl 
+          case 3: // com.panchadika.data.repository.CarrierRepositoryImpl 
           return (T) new CarrierRepositoryImpl(singletonCImpl.carrierDataSourceProvider.get());
 
-          case 7: // com.panchadika.data.source.CarrierDataSource 
+          case 4: // com.panchadika.data.source.CarrierDataSource 
           return (T) new CarrierDataSource(ApplicationContextModule_ProvideContextFactory.provideContext(singletonCImpl.applicationContextModule));
 
           default: throw new AssertionError(id);
