@@ -37,7 +37,7 @@ class ThreadViewModel @Inject constructor(
         viewModelScope.launch {
             _uiState.value = _uiState.value.copy(isLoading = true, error = null)
 
-            getMessagesUseCase.byAddress(address)
+            getMessagesUseCase(threadId)
                 .catch { e ->
                     _uiState.value = _uiState.value.copy(
                         isLoading = false,

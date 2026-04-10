@@ -1,17 +1,13 @@
 package com.panchadika.data.source
 
 import android.app.PendingIntent
-import android.content.BroadcastReceiver
 import android.content.ContentResolver
 import android.content.ContentUris
 import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
-import android.content.IntentFilter
 import android.database.Cursor
-import android.net.Uri
 import android.os.Build
-import android.os.RemoteException
 import android.provider.Telephony
 import android.telephony.SmsManager
 import com.panchadika.domain.model.Conversation
@@ -20,12 +16,10 @@ import com.panchadika.domain.model.MessageStatus
 import com.panchadika.domain.model.MessageType
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlinx.coroutines.withContext
 import java.util.ArrayList
 import javax.inject.Inject
 import javax.inject.Singleton
-import kotlin.coroutines.resume
 
 @Singleton
 class SmsDataSource @Inject constructor(
@@ -44,19 +38,16 @@ class SmsDataSource @Inject constructor(
         val uri = Telephony.Sms.Conversations.CONTENT_URI
         val projection = arrayOf(
             "thread_id",
-            "snippet",
-            "msg_count"
+            "snippet"
         )
 
         contentResolver.query(uri, projection, null, null, null)?.use { cursor ->
             val threadIdIndex = cursor.getColumnIndex("thread_id")
             val snippetIndex = cursor.getColumnIndex("snippet")
-            val msgCountIndex = cursor.getColumnIndex("msg_count")
             
             while (cursor.moveToNext()) {
                 val threadId = cursor.getLong(threadIdIndex)
                 val snippet = cursor.getString(snippetIndex) ?: ""
-                val msgCount = cursor.getInt(msgCountIndex)
                 
                 // Get address and date from the first message in this thread
                 val (address, timestamp) = getAddressAndDateForThread(threadId)
@@ -187,25 +178,11 @@ class SmsDataSource @Inject constructor(
                 put(Telephony.Sms.BODY, body)
                 put(Telephony.Sms.DATE, System.currentTimeMillis())
                 put(Telephony.Sms.TYPE, Telephony.Sms.MESSAGE_TYPE_SENT)
-                put(Telephony.Sms.STATUS, Telephony.Sms.STATUS_COMPLETE)
+                put(Telephony.Sms.STATUS, Telephony.Sms.STATUS_PENDING)
                 put(Telephony.Sms.THREAD_ID, threadId)
             }
 
             val uri = contentResolver.insert(Telephony.Sms.CONTENT_URI, values)
-            
-            val sentIntent = PendingIntent.getBroadcast(
-                context,
-                0,
-                Intent("com.panchadika.SMS_SENT"),
-                PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
-            )
-            
-            val deliveredIntent = PendingIntent.getBroadcast(
-                context,
-                0,
-                Intent("com.panchadika.SMS_DELIVERED"),
-                PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
-            )
 
             try {
                 val smsManager = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
@@ -215,10 +192,26 @@ class SmsDataSource @Inject constructor(
                     SmsManager.getDefault()
                 }
                 val parts = smsManager.divideMessage(body)
-                val sentIntents = ArrayList<PendingIntent>()
-                sentIntents.add(sentIntent)
-                val deliveredIntents = ArrayList<PendingIntent>()
-                deliveredIntents.add(deliveredIntent)
+                val sentIntents = ArrayList<PendingIntent>(parts.size)
+                val deliveredIntents = ArrayList<PendingIntent>(parts.size)
+                for (i in parts.indices) {
+                    sentIntents.add(
+                        PendingIntent.getBroadcast(
+                            context,
+                            i,
+                            Intent("com.panchadika.SMS_SENT"),
+                            PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
+                        )
+                    )
+                    deliveredIntents.add(
+                        PendingIntent.getBroadcast(
+                            context,
+                            i,
+                            Intent("com.panchadika.SMS_DELIVERED"),
+                            PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
+                        )
+                    )
+                }
                 smsManager.sendMultipartTextMessage(address, null, parts, sentIntents, deliveredIntents)
             } catch (e: Exception) {
                 // SMS sending failed - just continue

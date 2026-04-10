@@ -19,9 +19,6 @@
     <uses-permission android:name="android.permission.RECEIVE_MMS" />
     <uses-permission android:name="android.permission.WRITE_SMS" />
     
-    <!-- Default SMS app declaration -->
-    <uses-permission android:name="android.permission.READ_SMS" />
-
     <!-- Query for default SMS app requirements -->
     <queries>
         <intent>
@@ -43,9 +40,9 @@
         android:allowBackup="false"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="false"
-        android:icon="@drawable/ic_launcher_foreground"
+        android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@drawable/ic_launcher_foreground"
+        android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Panchadika"
         tools:targetApi="34">
