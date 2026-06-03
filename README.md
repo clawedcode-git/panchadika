@@ -17,7 +17,7 @@
 
 ## About
 
-**Panchadika** is a feature-rich Android SMS application built with modern Android development practices. It provides seamless SMS conversation management with a beautiful E-Chat inspired design featuring teal green (#44FC94) primary color with yellow (#F8DC89) accents.
+**Panchadika** is a feature-rich Android SMS application built with modern Android development practices. It provides seamless SMS conversation management with a beautiful E-Chat inspired design.
 
 The app can be set as the default SMS app on Android devices and supports carrier auto-detection, making it a complete messaging solution.
 
